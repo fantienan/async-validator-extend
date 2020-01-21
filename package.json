@@ -81,5 +81,8 @@
   },
   "pre-commit": [
     "lint-staged"
-  ]
+  ],
+  "main": "dist-node/index.js",
+  "module": "dist-web/index.js",
+  "types": "dist-types/index.d.ts"
 }
