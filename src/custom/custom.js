@@ -4,9 +4,10 @@
  *  author: tT
  **/
 
-import { pattern as p, types as t } from '../rule/type'
+import { pattern as p, types as t } from '../rule/type';
+import rules from './utils/rules';
 
-const pattern = {
+export const pattern = {
   ...p,
   positiveInteger: new RegExp(`^\\d+$`),                  //正整数
   negativeInteger: new RegExp(`^-\\d+$`),                 //负整数
@@ -20,7 +21,7 @@ const pattern = {
   date_2: new RegExp(`^(\\d{2})\\/(\\d{2})\\/(\\d{4})$`),   // 日期格式 mm/dd/yyyy
 };
 
-const types = {
+export const types = {
   ...t,
   // 字符长度范围
   rangeChar: (str = '', range) => {
@@ -79,5 +80,6 @@ const types = {
 
 export default {
   pattern,
-  types
+  types,
+  rules
 }

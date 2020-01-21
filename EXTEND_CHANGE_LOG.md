@@ -16,7 +16,7 @@
 4. src\index.js
 ```js
     // add 
-    import custom from './custom';
+    import custom from './custom/custom';
     // add 暴露方法 
     Schema.custom = custom;
 

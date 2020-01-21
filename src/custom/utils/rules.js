@@ -1,7 +1,7 @@
-import schema from 'async-validator-extend';
-
-// 自定义验证规则
-const {types, pattern} = schema.custom;
+/*
+*  自定义验证规则
+*/
+import { types, pattern } from '../custom';
 // 消息提示模板
 const messgaes = {
   required: () => '不允许为空',
@@ -28,49 +28,49 @@ const createMessage = (type, required = false, variate = '') => {
 };
 
 // 非空
-export const required = () => ([{
+const required = () => ([{
   required: true,
   message: messgaes.required
 }]);
 
 // 邮件
-export const email = ({required = false} = {}) => ([
-  {type: "email", required, message: messgaes.email},
+const email = ({ required = false } = {}) => ([
+  { type: "email", required, message: messgaes.email },
 ]);
 
 // 浮点数
-export const float = ({required = false} = {}) => ([
-  {type: "string", required, pattern: pattern.float, message: createMessage('float', required)},
+const float = ({ required = false } = {}) => ([
+  { type: "string", required, pattern: pattern.float, message: createMessage('float', required) },
 ]);
 
 // url
-export const url = ({required = false} = {}) => ([
-  {type: "string", required, pattern: pattern.url, message: createMessage('url', required)},
+const url = ({ required = false } = {}) => ([
+  { type: "string", required, pattern: pattern.url, message: createMessage('url', required) },
 ]);
 
 // 整数
-export const integer = ({required = false} = {}) => ([
-  {type: "string", required, pattern: pattern.integer, message: createMessage('integer', required)},
+const integer = ({ required = false } = {}) => ([
+  { type: "string", required, pattern: pattern.integer, message: createMessage('integer', required) },
 ]);
 
 // 字符串长度范围
-export const rangeLength = ({required = false, rules = ''} = {}) => {
+const rangeLength = ({ required = false, rules = '' } = {}) => {
   const pattern = new RegExp(`^(rangeLength:)(\\d+)(,)(\\d+)$`);
   const type = pattern.test(rules);
   let min, max;
   if (type) {
-    const {$2, $4} = RegExp;
+    const { $2, $4 } = RegExp;
     const arr = [$2, $4].sort((a, b) => a - b);
     min = Number(arr[0]);
     max = Number(arr[1]);
   }
   return [
-    {type: "string", required, min, max, message: createMessage('rangeLength', required, [min, max])},
+    { type: "string", required, min, max, message: createMessage('rangeLength', required, [min, max]) },
   ]
 };
 
 // 最大字符串长度
-export const maxLength = ({required = false, rules = ''} = {}) => {
+const maxLength = ({ required = false, rules = '' } = {}) => {
   let max;
   const pattern = new RegExp(`^(maxLength:)(\\d+)$`);
   const type = pattern.test(rules);
@@ -78,12 +78,12 @@ export const maxLength = ({required = false, rules = ''} = {}) => {
     max = Number(RegExp.$2);
   }
   return [
-    {type: "string", required, max, message: createMessage('maxLength', required, max)},
+    { type: "string", required, max, message: createMessage('maxLength', required, max) },
   ]
 };
 
 // 最小字符串长度
-export const minLength = ({required = false, rules = ''} = {}) => {
+const minLength = ({ required = false, rules = '' } = {}) => {
   let min;
   const pattern = new RegExp(`^(minLength:)(\\d+)$`);
   const type = pattern.test(rules);
@@ -91,12 +91,12 @@ export const minLength = ({required = false, rules = ''} = {}) => {
     min = Number(RegExp.$2);
   }
   return [
-    {type: "string", required, min, message: createMessage('minLength', required, min)},
+    { type: "string", required, min, message: createMessage('minLength', required, min) },
   ]
 };
 
 // 字符长度
-export const rangeChar = ({required = false, rules = ''} = {}) => ([
+const rangeChar = ({ required = false, rules = '' } = {}) => ([
   {
     type: "string",
     required,
@@ -104,7 +104,7 @@ export const rangeChar = ({required = false, rules = ''} = {}) => ([
       const pattern = new RegExp(`^(rangeChar:)(\\d+)(,)(\\d+)$`);
       const type = pattern.test(rules);
       if (type) {
-        const {$2, $4} = RegExp;
+        const { $2, $4 } = RegExp;
         let arr = [$2, $4].sort((a, b) => a - b);
         const min = Number(arr[0]);
         const max = Number(arr[1]);
@@ -118,17 +118,17 @@ export const rangeChar = ({required = false, rules = ''} = {}) => ([
 ]);
 
 // 日期类型
-export const date = ({required = false, rules = ''} = {}) => ([
+const date = ({ required = false, rules = '' } = {}) => ([
   {
     type: "string",
     required,
     validator(rule, value, callback, source, options) {
       let result;
       if (pattern.date_1.test(value)) {
-        const {$2, $3} = RegExp;
+        const { $2, $3 } = RegExp;
         result = $2 <= 12 && $3 <= 31 && $2 != '00' && $3 != '00';
       } else if (pattern.date_2.test(value)) {
-        const {$1, $2} = RegExp;
+        const { $1, $2 } = RegExp;
         result = $1 <= 12 && $2 <= 31 && $1 != '00' && $2 != '00';
       }
       const errors = !result ? [createMessage('date', required)] : [];
@@ -138,7 +138,7 @@ export const date = ({required = false, rules = ''} = {}) => ([
 ]);
 
 // 必须输入英文
-export const english = ({required = false, rules = ''} = {}) => ([
+const english = ({ required = false, rules = '' } = {}) => ([
   {
     type: "string",
     required,
@@ -152,7 +152,7 @@ export const english = ({required = false, rules = ''} = {}) => ([
 ]);
 
 // 必须输入英文+数字
-export const englishAndNumber = ({required = false, rules = ''} = {}) => ([
+const englishAndNumber = ({ required = false, rules = '' } = {}) => ([
   {
     type: "string",
     required,
@@ -170,7 +170,7 @@ export const englishAndNumber = ({required = false, rules = ''} = {}) => ([
 ]);
 
 // 只能输入中文
-export const chinese = ({required = false, rules = ''} = {}) => ([
+const chinese = ({ required = false, rules = '' } = {}) => ([
   {
     type: "string",
     required,
@@ -184,7 +184,7 @@ export const chinese = ({required = false, rules = ''} = {}) => ([
 ]);
 
 // 身份证号校验
-export const idCards = ({required = false, rules = ''} = {}) => ([
+const idCards = ({ required = false, rules = '' } = {}) => ([
   {
     type: "string",
     required,
@@ -195,7 +195,7 @@ export const idCards = ({required = false, rules = ''} = {}) => ([
       } else if (!required && !value) {
 
       } else {
-        let {code, msg} = types.validatorIDCard(value);
+        let { code, msg } = types.validatorIDCard(value);
         msg && errors.push(msg)
       }
       callback(errors)
@@ -204,3 +204,19 @@ export const idCards = ({required = false, rules = ''} = {}) => ([
 ]);
 
 
+export default {
+  required, 
+  email, 
+  float, 
+  url, 
+  integer, 
+  rangeLength, 
+  maxLength, 
+  minLength, 
+  rangeChar, 
+  date, 
+  english,
+  englishAndNumber, 
+  chinese, 
+  idCards
+}
