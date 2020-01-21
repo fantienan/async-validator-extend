@@ -9,7 +9,7 @@ import {
 import validators from './validator/index';
 import { messages as defaultMessages, newMessages } from './messages';
 // 自定义扩展包
-import custom from './custom';
+import custom from './custom/custom';
 
 /**
  *  Encapsulates a validation schema.

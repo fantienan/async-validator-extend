@@ -1,8 +1,10 @@
 #### 源码修改记录
 
-1. 添加custom.js,所有修改源码的操作都在这个文件中进行
+1. 添加custom文件夹,所有修改源码的操作都在这个文件中进行
 
-2. src/rule/type.js
+2. src\custom\utils\rules.js 校验规则
+
+3. src\rule\type.js
 ```js
     // const pattern = {...} // 源代码
     export const pattern = {...} // 修改后
@@ -11,7 +13,7 @@
     export const types = {...} // 修改后
 
 ```
-3. index.js
+4. src\index.js
 ```js
     // add 
     import custom from './custom';

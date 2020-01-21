@@ -4,7 +4,7 @@
  *  author: tT
  **/
 
-import { pattern as p, types as t } from './rule/type'
+import { pattern as p, types as t } from '../rule/type'
 
 const pattern = {
   ...p,
