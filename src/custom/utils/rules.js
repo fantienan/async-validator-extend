@@ -30,12 +30,12 @@ const createMessage = (type, required = false, variate = '') => {
 // 非空
 const required = () => ([{
   required: true,
-  message: messgaes.required
+  message: messgaes.required()
 }]);
 
 // 邮件
 const email = ({ required = false } = {}) => ([
-  { type: "email", required, message: messgaes.email },
+  { type: "email", required, message: messgaes.email() },
 ]);
 
 // 浮点数
